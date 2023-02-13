@@ -24,7 +24,11 @@ done
 if test "$BUILD_ALL" != "true"; then
 	# We're only building one semester
 	if test "$BUILD_FOR_TESTS" != "true"; then
-		SEMESTER=$(basename "$(find src/store/data/semester_data/* -type d -print0 -maxdepth 0 | xargs -0 | sed 's/ /\n/g' | sort -r | head -n1)")
+		if test "$1" = "-d"; then
+			SEMESTER=$2
+		else
+			SEMESTER=$(basename "$(find src/store/data/semester_data/* -type d -print0 -maxdepth 0 | xargs -0 | sed 's/ /\n/g' | sort -r | head -n1)")
+		fi
 	else
 		echo "Setting semester to testing semester so tests are consistent"
 		# Choose an arch semester for tests because arch semesters have more features to test
