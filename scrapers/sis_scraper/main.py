@@ -76,7 +76,7 @@ async def get_section_information(section_url):
         for seat_type in seating[1:]:
             kind = seat_type.find("th").text
             capacity, actual, remaining = tuple(
-                int(x.text) for x in seat_type.findAll("td")
+                int(x.text.replace(u'\xa0','0')) for x in seat_type.findAll("td")
             )
 
             if kind == "Seats":
