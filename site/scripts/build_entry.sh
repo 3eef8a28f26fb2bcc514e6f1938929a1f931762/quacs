@@ -29,7 +29,7 @@ if test "$BUILD_ALL" != "true"; then
 		# Choose an arch semester for tests because arch semesters have more features to test
 		SEMESTER="202105"
 	fi
-	SEMESTER=200201
+	SEMESTER=199909
 	echo "Building $SEMESTER..."
 	"$CURR_DIR/build_single.sh" "$@" -s "$SEMESTER" || exit 1
 
