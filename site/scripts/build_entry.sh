@@ -5,7 +5,6 @@ echo Retrieving latest quacs-data
 git -C src/store/data pull || git clone https://github.com/quacs/quacs-data --depth=2 src/store/data || exit 1
 
 CURR_DIR=$(dirname "${BASH_SOURCE[0]}")
-
 BUILD_ALL=false
 BUILD_FOR_TESTS=false
 
@@ -24,16 +23,13 @@ done
 if test "$BUILD_ALL" != "true"; then
 	# We're only building one semester
 	if test "$BUILD_FOR_TESTS" != "true"; then
-		if test "$1" = "-d"; then
-			SEMESTER=$2
-		else
-			SEMESTER=$(basename "$(find src/store/data/semester_data/* -type d -print0 -maxdepth 0 | xargs -0 | sed 's/ /\n/g' | sort -r | head -n1)")
-		fi
+		SEMESTER="$(basename "$(find src/store/data/semester_data/* -type d -print0 -maxdepth 0 | xargs -0 | sed 's/ /\n/g' | sort -r | head -n1)")"
 	else
 		echo "Setting semester to testing semester so tests are consistent"
 		# Choose an arch semester for tests because arch semesters have more features to test
 		SEMESTER="202105"
 	fi
+	SEMESTER=200201
 	echo "Building $SEMESTER..."
 	"$CURR_DIR/build_single.sh" "$@" -s "$SEMESTER" || exit 1
 
