@@ -366,6 +366,15 @@ async def main():
             for term in os.listdir("data/"):
                 if term not in semesters:
                     semesters.append(term)
+        elif sys.argv[-1] == "OLD_YEARS":
+            print("Parsing pre-2008 years only")
+            semesters = []
+            for year in range(1998,2008):
+                for term in ['01','05','09']:
+                    semester = str(year)+str(term)
+                    if semester not in semesters:
+                        semesters.append(semester)
+            semesters.remove("199801") # not in SIS
         elif len(sys.argv[-1]) == 6:
             print(f"Parsing {sys.argv[-1]} only")
             semesters = [sys.argv[-1]]
