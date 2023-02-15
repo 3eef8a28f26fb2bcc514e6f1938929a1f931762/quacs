@@ -57,6 +57,8 @@ echo >>.env
 echo -n "VUE_APP_ALL_SEMS=[" >>.env
 ITER=0
 for directory in $(find src/store/data/semester_data/* -type d -print0 -maxdepth 0 | xargs -0 | sed 's/ /\n/g' | sort -r); do
+	CATALOG_FILE="$directory/catalog.json"
+	if ! test -f "$CATALOG_FILE"; then echo "{}" > "$CATALOG_FILE" ; fi
 	if test $ITER -ne 0; then
 		echo -n "," >>.env
 	fi
